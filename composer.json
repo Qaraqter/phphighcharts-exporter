@@ -1,5 +1,5 @@
 {
-	"name" : "barthuttinga/phphighcharts-exporter",
+	"name" : "qaraqter/phphighcharts-exporter",
 	"type" : "library",
 	"description" : "PHP wrapper for exporting Highcharts created with PhpHighCharts with PhantomJS",
 	"keywords" : [
@@ -10,7 +10,7 @@
 	"license" : "MIT",
 	"authors" : [{
 			"name" : "Bart Huttinga",
-			"email" : "barthuttinga@gmail.com"
+			"email" : "bart@qaraqter.nl"
 		}
 	],
 	"autoload" : {
