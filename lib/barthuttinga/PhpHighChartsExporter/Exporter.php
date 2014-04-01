@@ -3,15 +3,11 @@ namespace PhpHighChartsExporter;
 
 final class Exporter
 {
-    private $imageWidth = 3500;
-
-    private $imageType = 'svg';
-
-    private $cacheDir;
-
     private $phantomJsBinary;
 
     private $conversionScript;
+
+    private $cacheDir;
 
     private $generatedCacheFiles = array();
 
@@ -20,7 +16,7 @@ final class Exporter
     public function __construct($phantomJsBinary, $conversionScript, $cacheDir)
     {
         // create cache path if needed
-        $this->cacheDir = $cacheDir;
+        $this->cacheDir = realpath($cacheDir);
         if (!is_dir($this->cacheDir)) {
             mkdir($this->cacheDir);
         }
@@ -43,7 +39,18 @@ final class Exporter
         $this->cleanupCacheFiles();
     }
 
-    public function export($data)
+    /**
+     * Exports the chart to a temporary file.
+     *
+     * @param string $data   JSON-string containing chart data
+     * @param string $format Image format
+     * @param number $width  Image width
+     *
+     * @return string Filename
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function export($data, $format = 'svg', $width = 600)
     {
         // check if json is valid
         if (!json_decode($data)) {
@@ -57,14 +64,14 @@ final class Exporter
         $this->generatedCacheFiles[] = $dataFile;
 
         // create file for chart ouput using PhantomJS and HighCharts' export script
-        $chartFile = $this->cacheDir . '/' . $hash . '-chart.' . $this->imageType;
+        $chartFile = $this->cacheDir . '/' . $hash . '-chart.' . $format;
         $command = sprintf(
             "%s %s -infile %s -outfile %s -width %s 2>&1",
             $this->phantomJsBinary,
             $this->conversionScript,
             $dataFile,
             $chartFile,
-            $this->imageWidth
+            $width
         );
         exec($command);
         $this->generatedChartFiles[] = $chartFile;
