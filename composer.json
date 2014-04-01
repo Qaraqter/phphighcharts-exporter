@@ -15,7 +15,7 @@
 	],
 	"autoload" : {
 		"psr-0" : {
-			"PhpHighChartsExporter\\" : "lib/barthuttinga/"
+			"PhpHighChartsExporter\\" : "lib/"
 		}
 	}
 }
