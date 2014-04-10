@@ -26,11 +26,11 @@ final class Exporter
         $this->conversionScript = realpath($conversionScript);
 
         if (!$this->phantomJsBinary) {
-            throw new \RuntimeException("PhantomJS binary not found at $this->phantomJsBinary");
+            throw new \RuntimeException("PhantomJS binary not found at $phantomJsBinary");
         }
 
         if (!$this->conversionScript) {
-            throw new \RuntimeException("Highcharts coversion script not found at $this->conversionScript");
+            throw new \RuntimeException("Highcharts conversion script not found at $conversionScript");
         }
     }
 
